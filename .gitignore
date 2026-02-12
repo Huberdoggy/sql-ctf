@@ -4,3 +4,5 @@
 
 # Local settings
 .vscode/*
+
+**/__pycache__/

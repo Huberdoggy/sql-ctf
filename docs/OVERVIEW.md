@@ -9,12 +9,15 @@ sql-ctf/
 ├── kernel_logs.db          # SQLite database (~1500 records)
 ├── docs
     ├── challenges.md       # 5 tiers of SQL challenges
-    ├── sql_reference.pdf   # Comprehensive SQL syntax guide
+    ├── OVERVIEW.md         # This file
+    └── sql_reference.pdf   # Comprehensive SQL syntax guide
 ├── helper_utils
     ├── generate_ctf_db.py  # Database generator script
-    ├── solutions.py        # Sample solutions (spoiler warning!)
     ├── query_starter.py    # Feel free to reference this, or remix my original pandas implementation
-    └── OVERVIEW.md         # This file
+    └── solutions.py        # Sample solutions (spoiler warning!)
+├── solutions/
+    ├── challenge_n.py      # User solutions/working attempts
+    └── __init.py__
 ```
 
 ## 🎮 Quick Start
