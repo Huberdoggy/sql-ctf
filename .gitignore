@@ -1,0 +1,6 @@
+# Scoped repo level overrides to my global JWT + GHApp auth workflow for agentic projects.
+# This repo will utilize a deploy key going forward.
+.ssh/*
+
+# Local settings
+.vscode/*
