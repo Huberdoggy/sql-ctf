@@ -6,6 +6,7 @@ from sqlalchemy import create_engine
 
 def instantiate_db():
     """
+    PRELIMINARY WORK:
     Set universally applicable viewing preferences; retrieve top-level view of all tables;
     return a list consisting of an engine object and list of tables.
     """
@@ -25,6 +26,7 @@ def instantiate_db():
 
 def dump_tables(engine, tables: list[str, None]):
     """
+    CHALLENGE 1.1:
     I preferred to start from scratch, installing pandas and sqlalchemy in order to render
     the table data in a more visually appealing manner for initial inspection.
     Feel free to remix this and make it your own.
@@ -39,7 +41,19 @@ def dump_tables(engine, tables: list[str, None]):
             df_query = pd.read_sql_query(query, con=engine)
             print(df_query, end="\n\n")
     except Exception as e:
-        error_class = type(e).__name__
-        error_msg = str(e)
-        print(f"Error Class: {error_class}")
-        print(f"Error Message: {error_msg}")
+        print(f"Caught an error - {type(e).__name__}: {str(e)}")
+
+
+def analyze_boot(engine, table: str = 'boot_logs'):
+    """
+    CHALLENGE 1.2:
+    """
+    try:
+        query = (
+            f"SELECT DISTINCT log_level, subsystem, message, boot_session FROM {table} \
+            WHERE log_level LIKE 'ERR%' OR log_level LIKE 'CRIT%'"
+        )
+        df_query = pd.read_sql_query(query, con=engine)
+        print(df_query)
+    except Exception as e:
+        print(f"Caught an error - {type(e).__name__}: {str(e)}")
