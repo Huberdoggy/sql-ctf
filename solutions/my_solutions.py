@@ -3,6 +3,11 @@ import sqlite3
 import pandas as pd
 from sqlalchemy import create_engine
 
+queries = {'boot_errors': """
+    SELECT DISTINCT log_level, subsystem, message, boot_session
+    FROM boot_logs WHERE log_level LIKE 'ERR%' OR log_level LIKE 'CRIT%'
+    """}
+
 
 def instantiate_db():
     """
@@ -44,16 +49,18 @@ def dump_tables(engine, tables: list[str, None]):
         print(f"Caught an error - {type(e).__name__}: {str(e)}")
 
 
-def analyze_boot(engine, table: str = 'boot_logs'):
+def run_query(engine, **kwargs):
     """
-    CHALLENGE 1.2:
+    Reusable implementation for various challenges - unpack associated keyword args
+    values as lookup keys for 'queries' dictionary
     """
+    if len(kwargs.items()) == 0:
+        print("No key specified to lookup a query.")
+        return
     try:
-        query = (
-            f"SELECT DISTINCT log_level, subsystem, message, boot_session FROM {table} \
-            WHERE log_level LIKE 'ERR%' OR log_level LIKE 'CRIT%'"
-        )
-        df_query = pd.read_sql_query(query, con=engine)
-        print(df_query)
+        for v in kwargs.values():
+            query = queries.get(v, "Not found.")
+            df_query = pd.read_sql_query(query, con=engine)
+            print(df_query)
     except Exception as e:
         print(f"Caught an error - {type(e).__name__}: {str(e)}")
